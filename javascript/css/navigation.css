@@ -1,0 +1,99 @@
+#Navigation
+{
+	position: absolute;
+	display: block;
+	overflow: hidden;
+	white-space: nowrap;
+	top: 74px;
+	height: 106px;
+	left: 0;
+	right: 0;
+	text-align: left;
+	background-color: #f2f2f2;
+}
+
+#Navigation div
+{
+	display: inline-block;
+	text-align: center;
+	color: #999;
+	width: 100px;
+	height: 100%;
+	padding-top: 29px;
+	border-right: 5px solid #e6e6e6;
+	box-sizing: border-box;
+	cursor: pointer;
+}
+
+#Navigation div .icon
+{
+	display: inline-block;
+	background-image: url(img/icons@2x.png);
+	background-size: 120px 141px;
+	width: 60px;
+	height: 47px;
+	margin-right: 14px;
+	vertical-align: middle;
+	background-position-x: 0px;
+}
+
+#Navigation .active .icon, #Navigation div:hover .icon
+{
+	background-position-x: 60px;
+}
+
+#Navigation .ViewProjects.active, #Navigation .ViewProjects:hover
+{
+	color: #0dadb7;
+}
+
+#Navigation .AddProject.active, #Navigation .AddProject:hover
+{
+	color: #58c3e5;
+}
+
+#Navigation div a
+{
+/* 
+	display: inline-block;
+	background-image: url(img/menu@2x.png);
+	background-size: 195px 72px;
+	width: 195px;
+	height: 24px;
+	background-position-x: 0px;
+ */
+
+ 	font-size: 19px;
+	text-transform: uppercase;
+	vertical-align: middle;
+}
+
+#Navigation .ViewProjects
+{
+	width: 310px;
+}
+
+#Navigation .AddProject
+{
+	width: 295px;
+}
+
+#Navigation .Notifications
+{
+	width: 310px;
+}
+
+#Navigation .ViewProjects .icon
+{
+	background-position-y: 0px;
+}
+
+#Navigation .AddProject .icon
+{
+	background-position-y: 94px;
+}
+
+#Navigation .Notifications .icon
+{
+	background-position-y: 47px;
+}

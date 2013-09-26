@@ -1,0 +1,465 @@
+header::after
+{
+	content: "";
+	display: block;
+	clear: both;
+}
+
+body
+{
+ 	background-color: #43464c;
+}
+
+body > header
+{
+	position: absolute;
+	display: block;
+	top: 0;
+	height: 74px;
+	left: 0;
+	right: 0;
+}
+
+a
+{
+	text-decoration: none;
+	color: inherit;
+}
+
+section
+{
+	display: none;
+	position: absolute;
+	top: 180px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	overflow-y: auto;
+	background-color: #fff;
+	text-align: left;
+}
+
+section > header
+{
+	display: block;
+}
+
+.central
+{
+	position: absolute;
+	left: 50%;
+	top: 100px;
+	right: auto;
+	bottom: auto;
+	margin-left: -260px;
+	width: 520px;
+}
+
+.central section
+{
+	display: block;
+	position: static;
+	padding: 45px;
+}
+
+.left
+{
+	float: left;
+}
+
+.right
+{
+	float: right;
+}
+
+.half-page
+{
+	width: 50%;
+	height: 100%;
+	position: relative;
+	overflow: hidden;
+}
+
+.half-page.left
+{
+	background-color: #0dadb7;
+}
+
+.half-page.right
+{
+	background-color: #58c3e5;
+}
+
+section .half-page a
+{
+	display: block;
+	position: absolute;
+	background-repeat: no-repeat;
+}
+
+#Dashboard .ViewProjects a
+{
+	background-image: url(img/view-projects@2x.png);
+	background-size: 420px 445px;
+	background-position-y: 60px;
+	width: 420px;
+	height: 505px;
+	left: 50%;
+	top: 50%;
+	margin-left: -210px;
+	margin-top: -252px;
+}
+
+#Dashboard .AddProject a
+{
+	background-image: url(img/add-project@2x.png);
+	background-size: 382px 505px;
+	width: 382px;
+	height: 505px;
+	left: 50%;
+	top: 50%;
+	margin-left: -191px;
+	margin-top: -252px;
+}
+
+.bar
+{
+	margin: 20px 0;
+	background-image: url(img/top-bar@2x.png);
+	background-size: 1px 4px;
+	background-repeat: repeat-x;
+	background-position-y: 50%;
+	text-align: center;
+}
+
+.bar span
+{
+	display: inline-block;
+	padding: 15px;
+	text-transform: uppercase;
+	font-size: 20px;
+	background-color: #43464c;
+	color: #b3b3b3;
+}
+
+section .bar
+{
+	margin: 0;
+	background-image: url(img/bar@2x.png);
+}
+
+section .bar span
+{
+	background-color: white;
+}
+
+.gallery
+{
+	white-space: nowrap;
+	overflow-x: auto;
+}
+
+.gallery .item
+{
+	display: inline-block;
+	vertical-align: top;
+	white-space: normal;
+	width: 420px;
+	margin: 50px;
+}
+
+.gallery .item .description
+{
+	height: 80px;
+	max-height: 80px;
+	margin-bottom: 10px;
+	overflow-y: hidden;
+	position: relative;
+	font-style: italic;
+	color: #666;
+}
+
+.gallery .item .description::after
+{
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-image: url(img/mask@2x.png);
+	background-size: 1px 40px;
+	background-repeat: repeat-x;
+	background-position-y: bottom;
+}
+
+.gallery .item .icon
+{
+	display: inline-block;
+	background-image: url(img/actions@2x.png);
+	background-size: 38px 96px;
+	vertical-align: middle;
+	background-position-x: 0;
+	width: 38px;
+	height: 32px;
+}
+
+.gallery .item .actions
+{
+	text-align: center;
+}
+
+.gallery .item .actions::after
+{
+	content: "";
+	display: block;
+	clear: both;
+}
+
+.gallery .item .actions div
+{
+	display: inline-block;
+	color: #666;
+}
+
+.gallery .item .actions div:first-child
+{
+	float: left;
+}
+
+.gallery .item .actions div:last-child
+{
+	float: right;
+}
+
+.gallery .item .actions a
+{
+	vertical-align: middle;
+	font-size: 18px;
+}
+
+.gallery .item .ViewDesign .icon
+{
+	background-position-y: 0px;
+}
+
+.gallery .item .AddComment .icon
+{
+	background-position-y: 32px;
+}
+
+.gallery .item .DeleteDesign .icon
+{
+	background-position-y: 64px;
+}
+
+.button
+{
+	text-align: center;
+}
+
+.button a
+{
+	display: inline-block;
+	position: relative;
+	border-top: none;
+	border-left: none;
+	padding: 0 20px;
+	line-height: 90px;
+	vertical-align: middle;
+	background-color: #58c3e5;
+	border-bottom: 6px solid #48a2b4;
+	border-right: 6px solid #48a2b4;
+	margin: 0;
+	height: 90px;
+	font-size: 28px;
+	color: #fff;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
+.button a::before
+{
+	content: "";
+	display: block;
+	position: absolute;
+	left: 0;
+	background-image: url(img/big-button-plug-bottom-left@2x.png);
+	background-size: 5px 6px;
+	width: 5px;
+	height: 6px;
+	bottom: -6px;
+}
+
+.button a::after
+{
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	background-image: url(img/big-button-plug-top-right@2x.png);
+	background-size: 6px 5px;
+	right: -6px;
+	width: 6px;
+	height: 5px;
+}
+
+section .button a
+{
+	line-height: 54px;
+	height: 54px;
+	font-size: 17px;
+	border-bottom-width: 4px;
+	border-right-width: 4px;
+	background-color: #0dadb7;
+}
+
+section .button a::before
+{
+	background-image: url(img/button-plug-bottom-left@2x.png);
+	background-size: 4px 4px;
+	width: 4px;
+	height: 4px;
+	bottom: -4px;
+}
+
+section .button a::after
+{
+	background-image: url(img/button-plug-top-right@2x.png);
+	background-size: 4px 4px;
+	right: -4px;
+	width: 4px;
+	height: 4px;
+}
+
+.page
+{
+	padding: 30px;
+}
+
+h2
+{
+	color: #0dadb7;
+	margin: 0;
+	text-transform: uppercase;
+	font-size: 35px;
+}
+
+.strip
+{
+	margin: 10px 0;
+	list-style: none;
+	float: left;
+	white-space: nowrap;
+	padding-bottom: 6px;
+	border-bottom: 4px solid #e6e6e6;
+	text-transform: uppercase;
+}
+
+.strip div
+{
+	display: inline-block;
+	padding: 0 8px;
+}
+
+.strip div .icon
+{
+	display: inline-block;
+	background-image: url(img/project-icons@2x.png);
+	background-size: 36px 108px;
+	width: 36px;
+	height: 36px;
+	vertical-align: middle;
+	background-position-x: 0px;
+}
+
+.strip div a
+{
+	color: #b3b3b3;
+	text-decoration: none;
+	vertical-align: middle;
+}
+
+.strip .EditProject .icon,
+.strip .PrintProject .icon,
+.strip .DeleteProject .icon
+{
+}
+
+.strip .ShareProject .icon
+{
+	background-position-y: 36px;
+}
+
+.design
+{
+	position: relative;
+	background-color: #f2f2f2;
+	border-bottom: 5px solid #ccc;
+	border-right: 5px solid #ccc;
+	height: 400px;
+	
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.design::before
+{
+	content: "";
+	display: block;
+	background-image: url(img/border-plug-bottom-left@2x.png);
+	background-size: 4px 5px;
+	width: 4px;
+	height: 5px;
+	position: absolute;
+	left: 0;
+	bottom: -5px;
+}
+
+.design::after
+{
+	content: "";
+	display: block;
+	background-image: url(img/border-plug-top-right@2x.png);
+	background-size: 5px 3px;
+	width: 5px;
+	height: 3px;
+	position: absolute;
+	top: 0;
+	right: -5px;
+}
+
+.design .add
+{
+	display: block;
+	position: absolute;
+	background-image: url(img/add-design@2x.png);
+	background-size: 188px 282px;
+	margin-top: -141px;
+	margin-left: -94px;
+	top: 50%;
+	left: 50%;
+	width: 188px;
+	height: 282px;
+}
+
+
+
+.links
+{
+	margin-top: 20px;
+	text-align: center;
+	color: #999;
+}
+
+.links a::before
+{
+	content: " | ";
+}
+
+.links a:first-child::before
+{
+	content: none;
+}

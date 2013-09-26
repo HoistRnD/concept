@@ -1,0 +1,173 @@
+section.modal
+{
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.4);
+	padding-top: 166px;
+	text-align: center;
+}
+
+section.modal .container
+{
+	display: inline-block;
+	width: 1039px;
+	background-color: #fff;
+}
+
+section.modal > .content
+{
+	display: inline-block;
+	width: 360px;
+	background-color: #fff;
+}
+
+section.modal > .container > .content
+{
+	width: 585px;
+	padding: 43px 0 43px 43px;
+}
+
+section.modal header
+{
+	display: block;
+	position: relative;
+	width: 100%;
+	height: 92px;
+	background-color: #0dadb7;
+}
+
+section.modal header h2
+{
+	position: absolute;
+	left: 34px;
+	right: 92px;
+	top: 0;
+	bottom: 0;
+	line-height: 92px;
+	overflow: hidden;
+	font-size: 29px;
+	white-space: nowrap;
+	vertical-align: middle;
+	text-align: left;
+	color: #fff;
+}
+
+section.modal header .close
+{
+	background-image: url(img/close@2x.png);
+	background-size: 34px 34px;
+	position: absolute;
+	top: 29px;
+	right: 29px;
+	width: 34px;
+	height: 34px;
+	width: 34px;
+	height: 34px;
+}
+
+section.modal > .content
+{
+	padding: 43px;
+}
+
+section.modal .sidebar
+{
+	float: right;
+	margin: 43px;
+	width: 325px;
+	text-align: left;
+}
+
+section.modal .sidebar h3
+{
+	margin: 0 0 10px 0;
+	font-size: 16px;
+	text-transform: uppercase;
+	color: #0dadb7;
+}
+
+section.modal .sidebar .item
+{
+	display: block;
+	border-top: 2px solid #e6e6e6;
+	padding: 9px 0;
+	color: #b3b3b3;
+}
+
+section.modal .sidebar .item .title
+{
+	text-transform: uppercase;
+}
+
+section.modal .sidebar .item .title::after
+{
+	content: ": ";
+}
+
+section.modal .sidebar .bubble::before
+{
+	content: "";
+	display: block;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	height: 22px;
+	background-image: url(img/bubble-tab@2x.png);
+	background-color: #fff;
+	background-size: 43px 22px;
+	background-position: 17px top;
+	background-repeat: no-repeat;
+	z-index: -1;
+}
+
+section.modal .sidebar .bubble
+{
+	background-color: #fafafa;
+	position: relative;
+	z-index: 0;
+	padding: 22px 0 10px 0;
+	
+	color: #ccc;
+}
+
+section.modal .sidebar .bubble textarea
+{
+	width: 100%;
+	height: 75px;
+	padding: 10px;
+	border: none;
+	resize: none; /* webkit horribleness */
+	background: none;
+	color: #b3b3b3;
+}
+
+section.modal .sidebar .bubble .action
+{
+	margin: 10px 10px 0 10px;
+}
+
+section.modal .sidebar .AddComment .icon
+{
+	display: inline-block;
+	vertical-align: middle;
+	width: 25px;
+	height: 25px;
+	margin-right: 4px;
+	background-image: url(img/add-comment@2x.png);
+	background-size: 25px 25px;
+}
+
+section.modal .sidebar .AddComment a
+{
+	vertical-align: middle;
+}
+
+section.modal .message
+{
+	color: #666;
+	margin-top: 20px;
+	margin-bottom: 35px;
+}
