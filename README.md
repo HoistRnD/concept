@@ -1,4 +1,4 @@
 concept
 =======
 
-co.nce.pt - Sample Hoist Apps
+co.nce.pt - Sample Hoist Apps Applications
