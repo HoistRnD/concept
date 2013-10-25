@@ -47,14 +47,14 @@
 
 <section id="ViewProjects">
 	<div class="gallery">
-		<div class="item" data-iterate-over="." data-set-data-id="[id]">
-			<div class="design" data-set-style="background-image: url([URL]);"></div>
+		<div class="item" data-each data-id="[id]">
+			<div class="design" style="background-image: url([URL]);"></div>
 			
 			<div class="bar">
-				<span data-content="[Name]"></span>
+				<span>[Name]</span>
 			</div>
 			
-			<div class="description" data-content="[Description]"></div>
+			<div class="description">[Description]</div>
 			
 			<div class="button">
 				<a href="javascript:" class="view">View</a>
@@ -63,7 +63,7 @@
 	</div>
 	
 		
-	<div class="page" data-if-empty=".">
+	<div class="page" data-if-empty>
 		There are no projects.
 	</div>
 </section>
@@ -71,7 +71,7 @@
 <section id="Project" class="page">
 	<header>
 
-		<h2 data-content="[Name]"></h2>
+		<h2>[Name]</h2>
 	
 		<nav class="strip">
 			<div class="ShareProject">
@@ -98,11 +98,11 @@
 	</header>
 	
 	<div class="gallery">
-		<div class="item" data-iterate-over="Designs" data-set-data-id="[id]">
-			<div class="design" data-set-style="background-image: url([URL]);"></div>
+		<div class="item" data-each="Designs" data-id="[id]">
+			<div class="design" style="background-image: url([URL]);"></div>
 			
 			<div class="bar">
-				<span data-content="[Name]"></span>
+				<span>[Name]</span>
 			</div>
 			
 			<div class="actions">
@@ -162,16 +162,16 @@
 <section id="Design" class="modal">
 	<div class="container">
 		<header>
-			<h2 data-content="[Name]"></h2>
+			<h2>[Name]</h2>
 			<a href="javascript:" class="close"></a>
 		</header>
 		
 		<div class="sidebar">
 			<h3>Comments</h3>
 			
-			<div class="item" data-iterate-over="Comments">
-				<span class="title" data-content="[Author]"></span>
-				<span class="content" data-content="[Content]"></span>
+			<div class="item" data-each="Comments">
+				<span class="title">[Author]</span>
+				<span class="content">[Content]</span>
 			</div>
 			
 			<div class="item" data-if-empty="Comments">
@@ -188,7 +188,7 @@
 		</div>
 		
 		<div class="content">
-			<div class="design" data-set-style="background-image: url([URL]);"></div>
+			<div class="design" style="background-image: url([URL]);"></div>
 		</div>
 	</div>
 </section>
@@ -249,13 +249,13 @@
 <section id="Confirm" class="modal">
 	<div class="content">
 		<div class="bar">
-			<span data-content="[Title]"></span>
+			<span>[Title]</span>
 		</div>
 		
-		<div class="message" data-content="[Message]"></div>
+		<div class="message">[Message]</div>
 		
 		<div class="button">
-			<a href="javascript:" data-content="[Action]"></a>
+			<a href="javascript:">[Action]</a>
 		</div>
 	</div>
 </section>

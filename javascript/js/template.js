@@ -7,150 +7,221 @@ var Template = (function () {
 		return s.replace(/-=/g, "-");
 	}
 	
-	function get(model, field, nothing) {
-		if (field == ".") return model || nothing;
+	function get(model, key, nothing) {
+		// read initial dots to move back in the stack
+
+		for (var i = 0; i < key.length - 1; i++) {
+			if (key[i] != ".") break;
+		}
+		
+		if (i) {
+			key = key.slice(i);
+		}
+
+		var model = model[model.length - i - 1];
+		
+		if (!key || key == ".") {
+			return model || nothing;
+		}
 	
-		return model && (model.attributes || model)[field] || nothing;
+		if (key.indexOf(".") == -1) {	
+			return model && (model.attributes || model)[key] || nothing;
+		} else {
+			key = key.split(".");
+		}
+		
+	    if (!model) return nothing;
+		
+	    var at = model;
+
+	    for (var i = 0; i < key.length; i++) {
+	        if (at.attributes) at = at.attributes;
+    	    else if (at.models) at = at.models;
+    	    
+	    	at = at[key[i]];
+
+    	    if (at == null) return nothing;
+	    }
+
+    	return at;
+	}
+	
+// 	function get(model, field, nothing) {
+// 		if (field == ".") return model || nothing;
+// 	
+// 		return model && (model.attributes || model)[field] || nothing;
+// 	}
+	
+	function vivify(html, doc) {
+		var div = (doc || document).createElement("div");
+		div.innerHTML = html;
+		return div.firstChild;
 	}
 	
 	var strs = {
 		beginMagic: "Hoist.Templates.BeginConstruct",
 		endMagic: "Hoist.Templates.EndConstruct",
-		iterateOver: "data-iterate-over",
-		ifEmpty: "data-if-empty",
+		iterateOver: "data-each",
 		setAttributePrefix: "data-set-",
 		hasSetter: "data-set",
 		template: "data-content",
 		hasConstruct: "data-has-construct",
-		attrs: {}
+		
+		constructs: {
+			"data-each": "expandIterateOver",
+			"data-if-empty": "expandIfEmpty",
+			"data-if-nonempty": "expandIfNonEmpty",
+			"data-if": "expandIf",
+			"data-if-not": "expandIfNot"
+		}
 	};
-	
-	strs.attrs[strs.iterateOver] = "expandIterateOver";
-	strs.attrs[strs.ifEmpty] = "expandIfEmpty";
 	
 	return {
 	
 		init: function () {
-			var node = document, val;
+			var scope = document, node = scope, val;
 			
-			// need to go in reverse document order (I think...)
+			// traverse in reverse document order
 			
-			while (node.lastElementChild) node = node.lastElementChild;
+			while (node.lastChild) node = node.lastChild;
 			
-			while (node != document) {
+			while (node != scope) {
 				// visit node
 				
-				for (var i = 0; i < node.attributes.length; i++) {
-					var attr = node.attributes[i].nodeName;
+				if (node.nodeType == 1) {
+					var hasSetter = false, putSetters = [];
 				
-					if (attr == strs.template || attr.slice(0, strs.setAttributePrefix.length) == strs.setAttributePrefix) {
-						node.setAttribute(strs.hasSetter, "");
-						break;
-					}
-				}
-				
-				for (var attr in strs.attrs) {
-					if (val = node.getAttribute(attr)) {
-						node.removeAttribute(attr);
+					for (var i = 0; i < node.attributes.length; i++) {
+						var attr = node.attributes[i];
 
-						var parent = node.parentNode, html = node.outerHTML;
-						var comment = node.ownerDocument.createComment(strs.beginMagic + attr + " " + val + " " + escape(html));
+						if (attr.nodeName == strs.template || attr.nodeName.slice(0, strs.setAttributePrefix.length) == strs.setAttributePrefix) {
+							hasSetter = true;
+						} else {
+							// set the setter automagically if you figure out it's a template
+						
+							if (attr.nodeValue.indexOf('[') > -1) {
+								putSetters.push(attr);
+							}
+						}
+					}
 					
-						parent.insertBefore(comment, node);
-						parent.insertBefore(node.ownerDocument.createComment(strs.endMagic), node);
-						parent.removeChild(node);
+					if (putSetters.length || hasSetter) node.setAttribute(strs.hasSetter, "");
 					
-						parent.setAttribute(strs.hasConstruct, "");
+					for (var i = 0; i < putSetters.length; i++) {
+						node.setAttribute(strs.setAttributePrefix + putSetters[i].nodeName, putSetters[i].nodeValue);
+						node.removeAttribute(putSetters[i].nodeName);
+					}
+				
+					for (var attr in strs.constructs) {
+						if (node.hasAttribute(attr)) {
+							val = node.getAttribute(attr);
+							node.removeAttribute(attr);
+
+							var parent = node.parentNode, html = node.outerHTML;
+							var comment = node.ownerDocument.createComment(strs.beginMagic + attr + " " + val + " " + escape(html));
 					
-						node = comment;
-						break;
+							parent.insertBefore(comment, node);
+							parent.insertBefore(node.ownerDocument.createComment(strs.endMagic), node);
+							parent.removeChild(node);
+					
+							parent.setAttribute(strs.hasConstruct, "");
+					
+							node = comment;
+							break;
+						}
 					}
 				}
 				
-				if (node.previousElementSibling) {
-					node = node.previousElementSibling;
-					while (node.lastElementChild) node = node.lastElementChild;
+				else if (node.nodeType == 3) {
+					// set the setter automagically if you figure out it's a template
+				
+					if (node.nodeValue.indexOf('[') > -1 && node.parentNode.nodeType == 1) {
+						node.parentNode.setAttribute(strs.template, node.nodeValue);
+					}
+				}
+				
+				if (node.previousSibling) {
+					node = node.previousSibling;
+					while (node.lastChild) node = node.lastChild;
 				} else {
 					node = node.parentNode;
 				}
 			}
-					
-// 			for (var i = nodes.length - 1; i >= 0; i--) {
-// 				var el = nodes[i], parent = el.parentNode;
-// 				var html = el.outerHTML;
-// 				var field = el.getAttribute("data-iterate-over");
-// 				
-// 				parent.insertBefore(el.ownerDocument.createComment(beginIterateOver + field + " " + escape(html)), el);
-// 				parent.insertBefore(el.ownerDocument.createComment(endIterateOver), el);
-// 				parent.removeChild(el);
-// 				
-// 				parent.setAttribute("data-has-iterator", "");
-// 			}
 		},
-		
-// 		dispose: function (el) {
-// 			$("[data-has-iterator]", el).each(function () {
-// 				var nodes = this.childNodes;
-// 			
-// 				for (var i = nodes.length - 1; i >= 0; i--) {
-// 					var node = nodes[i];
-// 			
-// 					if (node.nodeType == 8 && nodes.nodeValue == endIterateOver) {
-// 						i--;
-// 						
-// 						while (i >= 0 && nodes[i].nodeType != 8 || nodes[i].nodeValue.slice(0, beginIterateOver.length)) {
-// 							parent.removeChild(nodes[i--]);
-// 						}
-// 					}
-// 				}
-// 			});
-// 		},
 	
 		render: function (el, model) {
-			// this is good for now, but should be an actual DOM traversal so it doesn't replace tags in old iterate instances
-		
-			var elsWithSetter = $("[" + strs.hasSetter + "]", el);
-
-			if (el.hasAttribute(strs.hasSetter)) {
-				elsWithSetter = elsWithSetter.add(el);
-			 }
+			if (el.jquery) el = el[0];
+			var node = el, attrs, doc = node.ownerDocument;
 			
-			elsWithSetter.each(function () {
-				var attrs = {};
+			if (!this.stack) this.stack = [];
+			this.stack.push(model);
+		
+			while (node) {
+				// visit on the way down
 				
-				for (var i = 0; i < this.attributes.length; i++) {
-					var attr = this.attributes[i].nodeName;
+				if (node.nodeType == 1) {
+				
+					if (node.hasAttribute(strs.hasSetter)) {
+						attrs = {};
+				
+						for (var i = 0; i < node.attributes.length; i++) {
+							var attr = node.attributes[i].nodeName;
 
-					if (attr == strs.template) {
-						while (this.lastChild) this.removeChild(this.lastChild);
+							if (attr == strs.template) {
+								while (node.lastChild) node.removeChild(node.lastChild);
 						
-						this.appendChild(this.ownerDocument.createTextNode(Template.replace(this.attributes[i].nodeValue, model)));
+								node.appendChild(doc.createTextNode(Template.replace(node.attributes[i].nodeValue)));
+							}
+					
+							else if (attr.slice(0, strs.setAttributePrefix.length) == strs.setAttributePrefix) {
+								attrs[attr.slice(strs.setAttributePrefix.length)] = Template.replace(node.attributes[i].nodeValue);
+							}
+						}
+				
+						for (var x in attrs) {
+							node.setAttribute(x, attrs[x]);
+						}
+					}
+				
+					if (node.hasAttribute(strs.hasConstruct)) {
+						Template.contract(node);
+					}
+				}
+				
+				// move down first, then across
+				
+				if (node.firstChild) {
+					node = node.firstChild;
+				} else {
+					while (true) {
+						// visit on the way up
+					
+						if (node.nodeType == 1 && node.hasAttribute(strs.hasConstruct)) {
+							Template.expand(node, model);
+						}						
+					
+						if (node == el || node.nextSibling) break;
+						else node = node.parentNode;
 					}
 					
-					else if (attr.slice(0, strs.setAttributePrefix.length) == strs.setAttributePrefix) {
-						attrs[attr.slice(strs.setAttributePrefix.length)] = Template.replace(this.attributes[i].nodeValue, model);
-					}
+					if (node == el) break;
+					else node = node.nextSibling;
 				}
-				
-				for (var x in attrs) {
-					this.setAttribute(x, attrs[x]);
-				}
-			});
-			
-			var elsWithConstruct = $("[" + strs.hasConstruct + "]", el);
-			
-			if (el.hasAttribute(strs.hasConstruct)) {
-				elsWithConstruct = elsWithConstruct.add(el);
 			}
 			
-			elsWithConstruct.each(function () {
-				Template.expand(this, model);
-			});
+			this.stack.pop();
+			if (!this.stack.length) this.stack = null;
+			
+			return el;
 		},
 		
-		replace: function (template, model) {
-			return template.replace(/\[(.+)\]/g, function (tag, name) {
-				return get(model, name, "");
+		replace: function (template) {
+			var stack = this.stack;
+		
+			if (template.indexOf('[') == -1) return get(stack, template, "");
+		
+			return template.replace(/\[([^\]]+)\]/g, function (tag, name) {
+				return get(stack, name, "");
 			});
 		},
 		
@@ -158,54 +229,75 @@ var Template = (function () {
 			if (!model) return;
 			if (model.models) model = model.models;
 			if (!model.length) return;
-					
+			
+			var doc = node.ownerDocument,
+				frag = doc.createDocumentFragment();
+
 			for (var i = 0; i < model.length; i++) {
-				var newNode = $(html)[0];
-				this.render(newNode, model[i]);
-						
-				node.parentNode.insertBefore(newNode, node);
+				frag.appendChild(this.render(vivify(html, doc), model[i]));
 			}
+			
+			node.parentNode.insertBefore(frag, node);
 		},
 		
 		expandIfEmpty: function (html, node, model) {
-			if (!model || !model.models && !model.length || model.models && !model.models.length) {			
-				var newNode = $(html)[0];
-				this.render(newNode, model);
+			if (model && (model.models || model.length) && (!model.models || model.models.length)) return;
 			
-				node.parentNode.insertBefore(newNode, node);
+			node.parentNode.insertBefore(this.render(vivify(html, node.ownerDocument), model), node);
+		},
+		
+		expandIfNonEmpty: function (html, node, model) {
+			if (!model) return;
+			if (model.models) model = model.models;
+			if (!model.length) return;
+		
+			node.parentNode.insertBefore(this.render(vivify(html, node.ownerDocument), model), node);
+		},
+		
+		expandIf: function (html, node, model) {
+			if (!model) return;
+
+			node.parentNode.insertBefore(this.render(vivify(html, node.ownerDocument), model), node);
+		},
+		
+		expandIfNot: function (html, node, model) {
+			if (model) return;
+
+			node.parentNode.insertBefore(this.render(vivify(html, node.ownerDocument), model), node);
+		},
+		
+		contract: function (el) {
+			if (el.jquery) el = el[0];
+			
+			for (var node = el.firstChild; node; node = node.nextSibling) {
+				if (node.nodeType != 8) continue;
+				
+				if (node.nodeValue.slice(0, strs.beginMagic.length) != strs.beginMagic) continue;
+					
+				while(node.nextSibling.nodeType != 8 || node.nextSibling.nodeValue != strs.endMagic) {
+					el.removeChild(node.nextSibling);
+				}
 			}
-			
-			return node;
 		},
 		
 		expand: function (el, model) {
-			var parent = el.jquery ? el[0] : el;
+			if (el.jquery) el = el[0];
 			
-			for (var node = parent.firstChild; node; node = node.nextSibling) {
-				if (node.nodeType == 8) {
-					var content = node.nodeValue;
+			for (var node = el.firstChild; node; node = node.nextSibling) {
+				if (node.nodeType != 8) continue;
+				
+				var content = node.nodeValue;
 					
-					if (content.slice(0, strs.beginMagic.length) != strs.beginMagic) continue;
+				if (content.slice(0, strs.beginMagic.length) != strs.beginMagic) continue;
 					
-					content = content.slice(strs.beginMagic.length);
+				var space1 = content.indexOf(' ', strs.beginMagic.length),
+					space2 = content.indexOf(' ', space1 + 1),
+					attr = content.slice(strs.beginMagic.length, space1),
+					field = content.slice(space1 + 1, space2);
 					
-					var space = content.indexOf(' ');
-					var attr = content.slice(0, space);
-					content = content.slice(space + 1);
-
-					space = content.indexOf(' ');
-					var field = content.slice(0, space);
+				content = unescape(content.slice(space2 + 1));
 					
-					content = unescape(content.slice(space + 1));
-					
-					while(node.nextSibling.nodeType != 8 || node.nextSibling.nodeValue != strs.endMagic) {
-						parent.removeChild(node.nextSibling);
-					}
-					
-					node = node.nextSibling;
-					
-					this[strs.attrs[attr]](content, node, get(model, field));
-				}
+				this[strs.constructs[attr]](content, node = node.nextSibling, get(this.stack, field));
 			}
 		}
 	};
