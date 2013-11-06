@@ -1,0 +1,366 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>concept</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <!-- build:css(.tmp) styles/main.css -->
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild -->
+  <!-- build:js scripts/vendor/modernizr.js -->
+  <script src="bower_components/modernizr/modernizr.js"></script>
+  <!-- endbuild -->
+</head>
+
+<body>
+  <!--[if lt IE 10]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+  <header>
+  </header>
+
+  <nav id="Navigation">
+    <div class="ViewProjects">
+      <span class="icon"></span>
+      <a href="javascript:">View projects</a>
+    </div>
+
+    <div class="AddProject">
+      <span class="icon"></span>
+      <a href="javascript:">Add project</a>
+    </div>
+
+    <div class="Notifications">
+      <span class="icon"></span>
+      <a href="javascript:">Notifications</a>
+    </div>
+  </nav>
+
+  <section id="Dashboard">
+    <div class="half-page left ViewProjects">
+      <a href="javascript:"></a>
+    </div>
+    <div class="half-page right AddProject">
+      <a href="javascript:"></a>
+    </div>
+  </section>
+
+  <section id="ViewProjects">
+    <div class="gallery">
+      <div class="item" data-each data-id="[id]">
+        <div class="design" style="background-image: url([URL]);"></div>
+
+        <div class="bar">
+          <span>[Name]</span>
+        </div>
+
+        <div class="description">[Description]</div>
+
+        <div class="button">
+          <a href="javascript:" class="view">View</a>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="page" data-if-empty>
+      There are no projects.
+    </div>
+  </section>
+
+  <section id="Project" class="page">
+    <header>
+
+      <h2>[Name]</h2>
+
+      <nav class="strip">
+        <div class="ShareProject">
+          <span class="icon"></span>
+          <a href="javascript:">Share this project</a>
+        </div>
+
+        <div class="EditProject">
+          <span class="icon"></span>
+          <a href="javascript:">Edit project</a>
+        </div>
+
+        <div class="PrintProject">
+          <span class="icon"></span>
+          <a href="javascript:">Print project</a>
+        </div>
+
+        <div class="DeleteProject">
+          <span class="icon"></span>
+          <a href="javascript:">Delete project</a>
+        </div>
+      </nav>
+
+    </header>
+
+    <div class="gallery">
+      <div class="item" data-each="Designs" data-id="[id]">
+        <div class="design" style="background-image: url([URL]);"></div>
+
+        <div class="bar">
+          <span>[Name]</span>
+        </div>
+
+        <div class="actions">
+          <div class="ViewDesign">
+            <span class="icon"></span>
+            <a href="javascript:">View</a>
+          </div>
+
+          <div class="AddComment">
+            <span class="icon"></span>
+            <a href="javascript:">Add Comment</a>
+          </div>
+
+          <div class="DeleteDesign">
+            <span class="icon"></span>
+            <a href="javascript:">Delete</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="design">
+          <a href="javascript:" class="add"></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="Notifications">
+  </section>
+
+  <section id="AddProject" class="modal">
+    <div class="content">
+      <div class="bar">
+        <span>Add new project</span>
+      </div>
+
+      <fieldset>
+        <label for="AddProject-Name">Project Name</label>
+        <div class="input-cage">
+          <input type="text" id="AddProject-Name" name="Name" required="required" />
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <label for="AddProject-Description">Description</label>
+        <div class="input-cage">
+          <input type="text" id="AddProject-Description" name="Description" />
+        </div>
+      </fieldset>
+
+      <div class="button">
+        <a href="javascript:" class="add">Add</a>
+      </div>
+  </section>
+
+  <section id="Design" class="modal">
+    <div class="container">
+      <header>
+        <h2>[Name]</h2>
+        <a href="javascript:" class="close"></a>
+      </header>
+
+      <div class="sidebar">
+        <h3>Comments</h3>
+
+        <div class="item" data-each="Comments">
+          <span class="title">[Author]</span>
+          <span class="content">[Content]</span>
+        </div>
+
+        <div class="item" data-if-empty="Comments">
+          <span class="content">No comments have been added.</span>
+        </div>
+
+        <div class="bubble">
+          <textarea></textarea>
+          <div class="AddComment action">
+            <span class="icon"></span>
+            <a href="javascript:">Add Comment</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="design" style="background-image: url([URL]);"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="AddDesign" class="modal">
+    <div class="content">
+      <div class="bar">
+        <span>Add new design</span>
+      </div>
+
+      <fieldset>
+        <label for="AddDesign-Name">Design Name</label>
+        <div class="input-cage">
+          <input type="text" name="Name" id="AddDesign-Name" required="required" />
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <label for="UploadFile">Upload File</label>
+        <div class="input-cage">
+          <input type="file" required="required" />
+          <input type="text" disabled="disabled" />
+
+          <a href="javascript:">Browse</a>
+        </div>
+      </fieldset>
+
+      <div class="button">
+        <a href="javascript:" class="add">Add</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="InviteUser" class="modal">
+    <div class="content">
+      <div class="button">
+        <a href="javascript:">Invite from contacts</a>
+      </div>
+
+      <div class="bar">
+        <span>or</span>
+      </div>
+
+      <fieldset>
+        <label for="InviteUser-EmailAddress">Enter Email Address</label>
+
+        <div class="input-cage">
+          <input type="text" id="InviteUser-EmailAddress" />
+        </div>
+      </fieldset>
+
+      <div class="button">
+        <a href="javascript:">Invite</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="Confirm" class="modal">
+    <div class="content">
+      <div class="bar">
+        <span>[Title]</span>
+      </div>
+
+      <div class="message">[Message]</div>
+
+      <div class="button">
+        <a href="javascript:">[Action]</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="Login" class="modal">
+    <div class="content">
+      <div class="bar">
+        <span>Log in</span>
+      </div>
+
+      <fieldset>
+        <label for="EmailAddress">Email Address</label>
+        <div class="input-cage">
+          <input type="text" id="EmailAddress" name="EmailAddress" />
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <label for="Password">Password</label>
+        <div class="input-cage">
+          <input type="password" id="Password" name="Password" />
+        </div>
+      </fieldset>
+
+      <fieldset class="checkbox">
+        <input type="checkbox" id="RememberMe" name="RememberMe" />
+        <label for="RememberMe">Remember Me</label>
+      </fieldset>
+
+      <div class="button login">
+        <a href="javascript:">Log in</a>
+      </div>
+
+
+      <div class="bar">
+        <span>or</span>
+      </div>
+
+      <div class="big button signup">
+        <a href="javascript:">Sign up</a>
+      </div>
+    </div>
+  </section>
+    <section id="SignUp" class="modal">
+    <div class="content">
+        <div class="bar">
+            <span>Sign up</span>
+        </div>
+
+        <fieldset>
+            <label for="Name">Name</label>
+            <div class="input-cage">
+                <input type="text" id="Name" name="Name" />
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <label for="EmailAddress">Email Address</label>
+            <div class="input-cage">
+                <input type="text" id="EmailAddress" name="EmailAddress" />
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <label for="Password">Password</label>
+            <div class="input-cage">
+                <input type="password" id="Password" name="Password" />
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <label for="RepeatPassword">Repeat Password</label>
+            <div class="input-cage">
+                <input type="password" id="RepeatPassword" name="RepeatPassword" />
+            </div>
+        </fieldset>
+
+        <div class="button signup">
+            <a href="index.htm">Sign up</a>
+        </div>
+        </div>
+    </section>
+
+
+  </div>
+  <!-- build:js scripts/vendor.js -->
+  <!-- bower:js -->
+  <script src="bower_components/jquery/jquery.js"></script>
+  <!-- endbower -->
+  <!-- endbuild -->
+
+  <!-- build:js scripts/main.js -->
+  <script data-main="scripts/main" src="bower_components/requirejs/require.js"></script>
+
+  <!-- endbuild -->
+</body>
+
+</html>

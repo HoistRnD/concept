@@ -1,0 +1,152 @@
+$image-path: '../images/' !default;
+
+fieldset
+{
+	border: none;
+	margin: 10px 0;
+	text-align: center;
+}
+
+fieldset.checkbox
+{
+	text-align: left;
+}
+
+label
+{
+	color: #666;
+}
+
+fieldset label:first-child
+{
+	display: block;
+	margin: 8px 0;
+}
+
+.input-cage
+{
+	display: block;
+	position: relative;
+	z-index: 0;
+	background-color: #f2f2f2;
+	border-bottom: 2px solid #e6e6e6;
+	border-right: 2px solid #e6e6e6;
+}
+
+input[type=text], input[type=password]
+{
+	padding: 5px;
+	font-size: 20px;
+	color: #333;
+}
+
+input[type=checkbox]
+{
+	display: none;
+}
+
+input[type=checkbox] + label::before
+{
+	content: "";
+	display: inline-block;
+	vertical-align: middle;
+	background-image: url('#{$image-path}checkbox@2x.png');
+	background-size: 25px 25px;
+	width: 25px;
+	height: 25px;
+	margin-right: 8px;
+}
+
+input[type=checkbox]:checked + label::before
+{
+	background-image: url('#{$image-path}checkbox-checked@2x.png');
+}
+
+.input-cage::before, .checkbox-cage::before
+{
+	content: "";
+	display: block;
+	background-image: url('#{$image-path}input-plug-bottom-left@2x.png');
+	background-size: 2px 2px;
+	width: 2px;
+	height: 2px;
+	position: absolute;
+	bottom: -2px;
+	left: 0;
+}
+
+.input-cage::after, checkbox-cage::after
+{
+	content: "";
+	display: block;
+	background-image: url('#{$image-path}input-plug-top-right@2x.png');
+	background-size: 2px 3px;
+	width: 2px;
+	height: 3px;
+	position: absolute;
+	right: -2px;
+	top: 0;
+	z-index: -1;
+}
+
+.input-cage input
+{
+	width: 100%;
+	background: none;
+	border: none;
+}
+
+.input-cage a
+{
+	display: block;
+	position: absolute;
+	z-index: 1;
+	right: -2px;
+	top: 0;
+	padding: 0 20px;
+	color: #fff;
+	line-height: 38px;
+	vertical-align: middle;
+	bottom: -2px;
+	background-color: #999;
+	text-transform: uppercase;
+	border-bottom: 2px solid #808080;
+	border-right: 2px solid #808080;
+}
+
+.input-cage [type=file]
+{
+	width: 0;
+	height: 0;
+}
+
+.input-cage a::before
+{
+	content: "";
+	display: block;
+	background-image: url('#{$image-path}browse-plug-bottom-left@2x.png');
+	background-size: 2px 2px;
+	width: 2px;
+	height: 2px;
+	position: absolute;
+	bottom: -2px;
+	left: 0;
+}
+
+.input-cage a::after
+{
+	content: "";
+	display: block;
+	background-image: url('#{$image-path}browse-plug-top-right@2x.png');
+	background-size: 2px 1px;
+	width: 2px;
+	height: 1px;
+	position: absolute;
+	right: -2px;
+	top: 0;
+}
+
+input[type=text]:focus, input[type=password]:focus, textarea:focus
+{
+	outline-color: #0dadb7;
+}
