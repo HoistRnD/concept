@@ -1,4 +1,4 @@
-define(['concept', 'backbone'], function(Concept, Backbone) {
+define(['concept', 'backbone', "jquery", "hoist"], function(Concept, Backbone, $, hoist) {
     'use strict';
 
     function randomId() {
@@ -7,17 +7,28 @@ define(['concept', 'backbone'], function(Concept, Backbone) {
 
     Concept.Project = Backbone.Model.extend({
         initialize: function() {
+            $.ajaxPrefilter(function(options, originalOptions, jqXHR) {
+                options = $.extend(
+                    options,
+                    hoist.ajaxOptions
+                );
+                // Your server goes below
+                //options.url = 'http://localhost:8000' + options.url;
+                console.log(options);
+                options.url = 'https://data.hoi.io' + options.url;
+            });
             this.set('Designs', new Concept.Designs(this.get('Designs')));
-
             var self = this;
-
             this.set('id', randomId());
-
             this.get('Designs').on('add', function(design) {
                 self.set('URL', design.get('URL'));
 
                 self.trigger('change:designs change');
             });
+        },
+        urlRoot: '/Project',
+        url: function(x) {
+            return '/Project/'+hoist.currentUser()._id+":" + this.id;
         }
     });
 

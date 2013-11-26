@@ -236,11 +236,13 @@ define(['concept', 'backbone', 'template', 'hoist'], function(Concept, Backbone,
             }
 
             var model = new Concept.Project(this.objectify());
-
+            model.save();
             if (Concept.projects) {
                 Concept.projects.add(model);
             }
-
+            else{
+                Concept.projects=[model];
+            }
             new Concept.View.Project({
                 model: model
             });

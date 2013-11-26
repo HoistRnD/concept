@@ -1,16 +1,15 @@
 /* global define */
 
-define(["jquery", "jquery.cookie"], function($) {
+define(["jquery"], function(jQuery) {
     var Hoist = function() {
 
     };
 
     Hoist.prototype = {
         hoistUserKey: 'hoist-user',
-        hoistAjaxOptions: {},
+        ajaxOptions: {},
         initialize: function(apiKey) {
-            Hoist.hoistAjaxOptions = {
-                type: 'POST',
+            self.ajaxOptions = {
                 headers: {
                     'Authorization': 'Hoist ' + apiKey
                 },
@@ -20,13 +19,13 @@ define(["jquery", "jquery.cookie"], function($) {
             };
         },
         isLoggedIn: function() {
-            if (this.currentUser()) {
+            if (self.currentUser()) {
                 return true;
             }
             return false;
         },
         currentUser: function() {
-            return sessionStorage.getItem(this.hoistUserKey);
+            return  JSON.parse(sessionStorage.getItem(self.hoistUserKey)||"null");
         },
         login: function(email, password, onSuccess, onFailure) {
             var options = jQuery.extend({
@@ -37,10 +36,10 @@ define(["jquery", "jquery.cookie"], function($) {
                 },
                 type: 'POST',
                 success: function(response) {
-                    sessionStorage.setItem(this.hoistUserKey, response);
+                    sessionStorage.setItem(self.hoistUserKey,  JSON.stringify(response));
                     onSuccess();
                 }
-            }, Hoist.hoistAjaxOptions);
+            }, self.ajaxOptions);
             $.ajax(options);
         },
         signup: function(name, email, password, onSuccess, onFailure) {
@@ -53,13 +52,13 @@ define(["jquery", "jquery.cookie"], function($) {
                 },
                 type: 'POST',
                 success: function(response) {
-                    sessionStorage.setItem(this.hoistUserKey, response);
+                    sessionStorage.setItem(self.hoistUserKey,  JSON.stringify(response));
                     onSuccess();
                 }
-            }, Hoist.hoistAjaxOptions);
+            }, self.ajaxOptions);
             $.ajax(options);
         }
     };
-
-    return new Hoist();
+    var self = new Hoist();
+    return self;
 });
