@@ -5,7 +5,8 @@ require.config({
         backbone: '../bower_components/backbone/backbone',
         underscore: '../bower_components/underscore/underscore',
         hoist: './hoist/hoist',
-        requirejs: '../bower_components/requirejs/require'
+        requirejs: '../bower_components/requirejs/require',
+        "jquery.cookie":"../bower_components/jquery.cookie/jquery.cookie"
     },
     shim: {
         underscore: {
@@ -20,8 +21,15 @@ require.config({
         }
     }
 });
-require(['app', 'jquery','hoist'], function (app) {
+require(['app', 'jquery','hoist'], function (app,$,hoist) {
     'use strict';
     app.init();
-    new app.concept.View.Login();
+    hoist.initialize('KUCCCEGNXPOJPEJEQOUW');
+    if(hoist.isLoggedIn()){
+        new app.concept.View.Dashboard();
+    }
+    else{
+        new app.concept.View.Login();
+    }
+
 });

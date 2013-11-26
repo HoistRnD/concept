@@ -1,4 +1,4 @@
-define(['concept', 'backbone', 'template'], function(Concept, Backbone, Template) {
+define(['concept', 'backbone', 'template', 'hoist'], function(Concept, Backbone, Template, hoist) {
     'use strict';
     Concept.Navigation = Backbone.View.extend({
         events: {
@@ -345,25 +345,9 @@ define(['concept', 'backbone', 'template'], function(Concept, Backbone, Template
         el: '#Login',
 
         login: function() {
-            var options = {
-                url: 'http://auth.hoi.io/session/login',
-                data: {
-
-
-
-                    username: this.$('#EmailAddress').val(),
-                    password: this.$('#Password').val()
-                },
-                type: 'POST',
-                headers: {
-                    'Authorization': 'Hoist GGIEBOATGWTEFOZZAJ'
-                },
-                xhrFields: {
-                    withCredentials: true
-                }
-            };
-
-            $.ajax(options);
+            hoist.login(this.$('#EmailAddress').val(), this.$('#Password').val(), function() {
+                new Concept.View.Dashboard();
+            });
             return false;
 
         },
@@ -380,28 +364,10 @@ define(['concept', 'backbone', 'template'], function(Concept, Backbone, Template
         el: '#SignUp',
 
         signup: function() {
-            var options = {
-                url: 'http://auth.hoi.io/user',
-                data: {
-                    name: this.$('#Name').val(),
-                    email: this.$('#EmailAddress').val(),
-                    password: this.$('#Password').val()
-                },
-                success: function() {
-                    new Concept.View.Dashboard();
-                },
-                type: 'POST',
-                headers: {
-                    'Authorization': 'Hoist GGIEBOATGWTEFOZZAJ'
-                },
-                xhrFields: {
-                    withCredentials: true
-                }
-            };
-
-            $.ajax(options);
+            hoist.signup(this.$('#Name').val(), this.$('#EmailAddress').val(), this.$('#Password').val(), function() {
+                new Concept.View.Dashboard();
+            });
             return false;
-
         }
 
     });

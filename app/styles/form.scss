@@ -1,4 +1,4 @@
-$image-path: '../images/' !default;
+
 
 fieldset
 {
@@ -50,7 +50,7 @@ input[type=checkbox] + label::before
 	content: "";
 	display: inline-block;
 	vertical-align: middle;
-	background-image: url('#{$image-path}checkbox@2x.png');
+	background-image: url('/images/checkbox@2x.png');
 	background-size: 25px 25px;
 	width: 25px;
 	height: 25px;
@@ -59,14 +59,14 @@ input[type=checkbox] + label::before
 
 input[type=checkbox]:checked + label::before
 {
-	background-image: url('#{$image-path}checkbox-checked@2x.png');
+	background-image: url('/images/checkbox-checked@2x.png');
 }
 
 .input-cage::before, .checkbox-cage::before
 {
 	content: "";
 	display: block;
-	background-image: url('#{$image-path}input-plug-bottom-left@2x.png');
+	background-image: url('/images/input-plug-bottom-left@2x.png');
 	background-size: 2px 2px;
 	width: 2px;
 	height: 2px;
@@ -79,7 +79,7 @@ input[type=checkbox]:checked + label::before
 {
 	content: "";
 	display: block;
-	background-image: url('#{$image-path}input-plug-top-right@2x.png');
+	background-image: url('/images/input-plug-top-right@2x.png');
 	background-size: 2px 3px;
 	width: 2px;
 	height: 3px;
@@ -124,7 +124,7 @@ input[type=checkbox]:checked + label::before
 {
 	content: "";
 	display: block;
-	background-image: url('#{$image-path}browse-plug-bottom-left@2x.png');
+	background-image: url('/images/browse-plug-bottom-left@2x.png');
 	background-size: 2px 2px;
 	width: 2px;
 	height: 2px;
@@ -137,7 +137,7 @@ input[type=checkbox]:checked + label::before
 {
 	content: "";
 	display: block;
-	background-image: url('#{$image-path}browse-plug-top-right@2x.png');
+	background-image: url('/images/browse-plug-top-right@2x.png');
 	background-size: 2px 1px;
 	width: 2px;
 	height: 1px;

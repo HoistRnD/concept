@@ -1,4 +1,3 @@
-$image-path: '../images/' !default;
 
 header::after
 {
@@ -101,7 +100,7 @@ section .half-page a
 
 #Dashboard .ViewProjects a
 {
-	background-image: url('#{$image-path}/view-projects@2x.png');
+	background-image: url('/images/view-projects@2x.png');
 	background-size: 420px 445px;
 	background-position-y: 60px;
 	width: 420px;
@@ -114,7 +113,7 @@ section .half-page a
 
 #Dashboard .AddProject a
 {
-	background-image: url('#{$image-path}/add-project@2x.png');
+	background-image: url('/images/add-project@2x.png');
 	background-size: 382px 505px;
 	width: 382px;
 	height: 505px;
@@ -127,7 +126,7 @@ section .half-page a
 .bar
 {
 	margin: 20px 0;
-	background-image: url('#{$image-path}/top-bar@2x.png');
+	background-image: url('/images/top-bar@2x.png');
 	background-size: 1px 4px;
 	background-repeat: repeat-x;
 	background-position-y: 50%;
@@ -147,7 +146,7 @@ section .half-page a
 section .bar
 {
 	margin: 0;
-	background-image: url('#{$image-path}/bar@2x.png');
+	background-image: url('/images/bar@2x.png');
 }
 
 section .bar span
@@ -190,7 +189,7 @@ section .bar span
 	bottom: 0;
 	left: 0;
 	right: 0;
-	background-image: url('#{$image-path}/mask@2x.png');
+	background-image: url('/images/mask@2x.png');
 	background-size: 1px 40px;
 	background-repeat: repeat-x;
 	background-position-y: bottom;
@@ -199,7 +198,7 @@ section .bar span
 .gallery .item .icon
 {
 	display: inline-block;
-	background-image: url('#{$image-path}/actions@2x.png');
+	background-image: url('/images/actions@2x.png');
 	background-size: 38px 96px;
 	vertical-align: middle;
 	background-position-x: 0;
@@ -287,7 +286,7 @@ section .bar span
 	display: block;
 	position: absolute;
 	left: 0;
-	background-image: url('#{$image-path}/big-button-plug-bottom-left@2x.png');
+	background-image: url('/images/big-button-plug-bottom-left@2x.png');
 	background-size: 5px 6px;
 	width: 5px;
 	height: 6px;
@@ -300,7 +299,7 @@ section .bar span
 	display: block;
 	position: absolute;
 	top: 0;
-	background-image: url('#{$image-path}/big-button-plug-top-right@2x.png');
+	background-image: url('/images/big-button-plug-top-right@2x.png');
 	background-size: 6px 5px;
 	right: -6px;
 	width: 6px;
@@ -319,7 +318,7 @@ section .button a
 
 section .button a::before
 {
-	background-image: url('#{$image-path}/button-plug-bottom-left@2x.png');
+	background-image: url('/images/button-plug-bottom-left@2x.png');
 	background-size: 4px 4px;
 	width: 4px;
 	height: 4px;
@@ -328,7 +327,7 @@ section .button a::before
 
 section .button a::after
 {
-	background-image: url('#{$image-path}/button-plug-top-right@2x.png');
+	background-image: url('/images/button-plug-top-right@2x.png');
 	background-size: 4px 4px;
 	right: -4px;
 	width: 4px;
@@ -368,7 +367,7 @@ h2
 .strip div .icon
 {
 	display: inline-block;
-	background-image: url('#{$image-path}project-icons@2x.png');
+	background-image: url('/images/project-icons@2x.png');
 	background-size: 36px 108px;
 	width: 36px;
 	height: 36px;
@@ -411,7 +410,7 @@ h2
 {
 	content: "";
 	display: block;
-	background-image: url('#{$image-path}/border-plug-bottom-left@2x.png');
+	background-image: url('/images/border-plug-bottom-left@2x.png');
 	background-size: 4px 5px;
 	width: 4px;
 	height: 5px;
@@ -424,7 +423,7 @@ h2
 {
 	content: "";
 	display: block;
-	background-image: url('#{$image-path}/border-plug-top-right@2x.png');
+	background-image: url('/images/border-plug-top-right@2x.png');
 	background-size: 5px 3px;
 	width: 5px;
 	height: 3px;
@@ -437,7 +436,7 @@ h2
 {
 	display: block;
 	position: absolute;
-	background-image: url('#{$image-path}/add-design@2x.png');
+	background-image: url('/images/add-design@2x.png');
 	background-size: 188px 282px;
 	margin-top: -141px;
 	margin-left: -94px;

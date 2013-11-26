@@ -1,4 +1,4 @@
-$image-path: '../images/' !default;
+
 
 #Navigation
 {
@@ -30,7 +30,7 @@ $image-path: '../images/' !default;
 #Navigation div .icon
 {
 	display: inline-block;
-	background-image: url('#{$image-path}icons@2x.png');
+	background-image: url('/images/icons@2x.png');
 	background-size: 120px 141px;
 	width: 60px;
 	height: 47px;
@@ -58,7 +58,7 @@ $image-path: '../images/' !default;
 {
 /*
 	display: inline-block;
-	background-image: url('#{$image-path}menu@2x.png');
+	background-image: url('/images/menu@2x.png');
 	background-size: 195px 72px;
 	width: 195px;
 	height: 24px;
