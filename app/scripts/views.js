@@ -1,4 +1,4 @@
-define(['concept', 'backbone', 'template', 'hoist'], function(Concept, Backbone, Template, hoist) {
+define(['concept', 'backbone', 'template'], function(Concept, Backbone, Template) {
     'use strict';
     Concept.Navigation = Backbone.View.extend({
         events: {
@@ -161,7 +161,7 @@ define(['concept', 'backbone', 'template', 'hoist'], function(Concept, Backbone,
 
         view: function(e) {
             var model = this.model.get($(e.target).closest('.item').attr('data-id'));
-
+            //  console.log($(e.target).closest('.item').attr('data-id'));
             if (model) {
                 new Concept.View.Project({
                     model: model
@@ -182,11 +182,16 @@ define(['concept', 'backbone', 'template', 'hoist'], function(Concept, Backbone,
 
         el: '#Project',
 
+        initialize: function() {
+            Concept.View.prototype.initialize.apply(this);
+            this.model.on("change", this.post, this);
+        },
+
         add: function() {
             var model = this.model;
 
-            new Concept.View.AddDesign().on('add', function(design) {
-                model.get('Designs').add(design);
+            new Concept.View.AddDesign({
+                model: model
             });
         },
 
@@ -216,6 +221,15 @@ define(['concept', 'backbone', 'template', 'hoist'], function(Concept, Backbone,
 
         shareProject: function() {
             new Concept.View.InviteUser();
+        },
+
+        post: function() {
+            // Hoist.post("project", this.model, function(res) {
+            //     console.log(res);
+            //     console.log("project post successful");
+            // }, function(res) {
+            //     console.log("project post unsuccessful: " + res);
+            // });
         }
     });
 
@@ -236,12 +250,16 @@ define(['concept', 'backbone', 'template', 'hoist'], function(Concept, Backbone,
             }
 
             var model = new Concept.Project(this.objectify());
-            model.save();
             if (Concept.projects) {
                 Concept.projects.add(model);
-            }
-            else{
-                Concept.projects=[model];
+                Hoist.post("project", model, function(res) {
+                    // success
+                    console.log(res);
+                    model.set("_id", res[0]._id);
+                    console.log(model);
+                })
+            } else {
+                Concept.projects = [model];
             }
             new Concept.View.Project({
                 model: model
@@ -262,6 +280,11 @@ define(['concept', 'backbone', 'template', 'hoist'], function(Concept, Backbone,
             'click': 'trash'
         },
 
+        initialize: function() {
+            Concept.View.prototype.initialize.apply(this);
+            this.model.on("change", this.post, this);
+        },
+
         el: '#Design',
 
         keydown: function(e) {
@@ -280,6 +303,15 @@ define(['concept', 'backbone', 'template', 'hoist'], function(Concept, Backbone,
             }));
 
             textarea.val('');
+        },
+
+        post: function() {
+            Hoist.post("design", this.model, function(res) {
+                console.log(res);
+                console.log("project post successful");
+            }, function(res) {
+                console.log("project post unsuccessful: " + res);
+            });
         }
     });
 
@@ -319,7 +351,21 @@ define(['concept', 'backbone', 'template', 'hoist'], function(Concept, Backbone,
 
             hash.URL = URL.createObjectURL(file);
 
-            this.trigger('add', new Concept.Design(hash));
+            var design = new Concept.Design();
+            this.model.get("Designs").add(design);
+            var project = this.model;
+            Hoist.post("design", design, function(res) {
+                console.log(res);
+                design.set("_id", res[0]._id);
+                console.log(design);
+                Hoist.post("project", project, function(res) {
+                    console.log(res);
+                    console.log(project.toJSON());
+                    console.log("project post successful");
+                }, function(res) {
+                    console.log("project post unsuccessful: " + res);
+                });
+            })
 
             this.trash();
         }
@@ -347,7 +393,10 @@ define(['concept', 'backbone', 'template', 'hoist'], function(Concept, Backbone,
         el: '#Login',
 
         login: function() {
-            hoist.login(this.$('#EmailAddress').val(), this.$('#Password').val(), function() {
+            Hoist.login({
+                username: this.$('#EmailAddress').val(),
+                password: this.$('#Password').val()
+            }, function() {
                 new Concept.View.Dashboard();
             });
             return false;
@@ -365,8 +414,12 @@ define(['concept', 'backbone', 'template', 'hoist'], function(Concept, Backbone,
 
         el: '#SignUp',
 
-        signup: function() {
-            hoist.signup(this.$('#Name').val(), this.$('#EmailAddress').val(), this.$('#Password').val(), function() {
+        signup: function() { // should probably check that password and repeat password match
+            Hoist.signup({
+                name: this.$('#Name').val(),
+                email: this.$('#EmailAddress').val(),
+                password: this.$('#Password').val()
+            }, function() {
                 new Concept.View.Dashboard();
             });
             return false;

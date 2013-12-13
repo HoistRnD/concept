@@ -7,7 +7,7 @@
 // use this if you want to recursively match all subfolders:
 // 'test/spec/**/*.js'
 
-module.exports = function (grunt) {
+module.exports = function(grunt) {
     // show elapsed time at the end
     require('time-grunt')(grunt);
     // load all grunt tasks
@@ -311,8 +311,8 @@ module.exports = function (grunt) {
             }
         }
     });
-
-    grunt.registerTask('server', function (target) {
+    grunt.loadNpmTasks('grunt-contrib-compass');
+    grunt.registerTask('server', function(target) {
         if (target === 'dist') {
             return grunt.task.run(['build', 'connect:dist:keepalive']);
         }
