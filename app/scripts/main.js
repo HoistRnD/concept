@@ -28,7 +28,7 @@ require.config({
 require(['app', 'jquery', 'hoist'], function(app, $) {
     'use strict';
     app.init();
-    Hoist.apiKey('HKBQOKTIZQXLKFGZCGGP');
+    Hoist.apiKey('PKHZPBO[TPCPGOMLTHJD');
     Hoist.status(function() {
             app.concept.load();
         },
