@@ -8,7 +8,7 @@ define(['backbone','template','concept','models','views'], function (backbone,te
 
     App.prototype.init = function(){
         this.template.init();
-        new this.concept.Navigation();
+     //   new this.concept.Navigation();
    //     new this.concept.View.Dashboard();
     };
     return new App();

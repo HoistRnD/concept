@@ -217,7 +217,7 @@ var Hoist = (function() {
 
 			if (type === "File") {
 				data = new FormData();
-				data.append("FILE", file);
+				data.append("file", file);
 			} else if (type === "FormData") {
 				data = file;
 			} else if (type === "HTMLInputElement") {
