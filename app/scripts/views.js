@@ -186,7 +186,7 @@ define(['concept', 'backbone', 'template'], function(Concept, Backbone, Template
 
         viewProjects: function() {
             Concept.projects.each(function(project) {
-                if (project.get('Designs')) {
+                if (project.get('Designs') && project.get('Designs').at(0)) {
                     project.set('URL', project.get('Designs').at(0).get('URL'));
                 }
             });
