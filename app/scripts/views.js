@@ -10,7 +10,7 @@ define(['concept', 'backbone', 'template'], function(Concept, Backbone, Template
                             Hoist.file("image:" + design.get("_id"), function(res) {
                                 design.set("URL", URL.createObjectURL(res));
                             });
-                        })
+                        });
                         Hoist.get("project", function(res2) {
                             Concept.projects = new Concept.Projects(res2);
                             new Concept.Navigation();
@@ -185,11 +185,6 @@ define(['concept', 'backbone', 'template'], function(Concept, Backbone, Template
         el: '#Dashboard',
 
         viewProjects: function() {
-            Concept.projects.each(function(project) {
-                if (project.get('Designs') && project.get('Designs').at(0)) {
-                    project.set('URL', project.get('Designs').at(0).get('URL'));
-                }
-            });
             new Concept.View.Projects();
         },
 
@@ -200,18 +195,24 @@ define(['concept', 'backbone', 'template'], function(Concept, Backbone, Template
 
     Concept.View.Projects = Concept.View.extend({
         events: {
-            'click .view': 'view'
+            'click .view': 'view',
+            'click .design': 'view',
         },
 
         el: '#ViewProjects',
 
         start: function() {
+            var that = this;
+            Concept.projects.each(function(project) {
+                if (project.get('Designs') && project.get('Designs').at(0)) {
+                    project.set('URL', project.get('Designs').at(0).get('URL'));
+                }
+            });
             this.model = Concept.projects;
         },
 
         view: function(e) {
             var model = this.model.get($(e.target).closest('.item').attr('data-id'));
-            //  console.log($(e.target).closest('.item').attr('data-id'));
             if (model) {
                 new Concept.View.Project({
                     model: model
@@ -307,8 +308,9 @@ define(['concept', 'backbone', 'template'], function(Concept, Backbone, Template
 
             var project = new Concept.Project(this.objectify());
             if (Concept.projects) {
-                Concept.postModel(project, "project");
-                Concept.projects.add(project);
+                Concept.postModel(project, "project", function() {
+                    Concept.projects.add(project);
+                }, this);
             } else {
                 Concept.projects = [project];
             }
@@ -351,8 +353,9 @@ define(['concept', 'backbone', 'template'], function(Concept, Backbone, Template
                 Content: textarea.val()
             });
             var that = this;
-            Concept.postModel(comment, "comment");
-            that.model.get('Comments').add(comment);
+            Concept.postModel(comment, "comment", function() {
+                that.model.get('Comments').add(comment);
+            }, this);
             textarea.val('');
         },
 

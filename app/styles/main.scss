@@ -5,6 +5,10 @@
 @import 'navigation.scss';
 @import 'styles.scss';
 
+* {
+    font-family: 'routerbook';
+}
+
 .browsehappy {
     margin: 0.2em 0;
     background: #ccc;

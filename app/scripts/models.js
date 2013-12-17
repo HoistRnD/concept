@@ -35,6 +35,10 @@ define(['concept', 'backbone', "jquery", 'relational'], function(Concept, Backbo
                 })
             });
         },
+        
+        defaults: {
+            URL: ""
+        }
     });
 
     Concept.Projects = Backbone.Collection.extend({
