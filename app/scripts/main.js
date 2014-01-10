@@ -28,7 +28,8 @@ require.config({
 require(['app', 'jquery', 'hoist'], function(app, $) {
     'use strict';
     app.init();
-    Hoist.apiKey('PKHZPBO[TPCPGOMLTHJD');
+    var apiKey = 'put apiKey here'; // replace with the api key for your app
+    Hoist.apiKey(apiKey);
     Hoist.status(function() {
             app.concept.load();
         },
