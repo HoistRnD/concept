@@ -36,12 +36,6 @@
 	height: 47px;
 	margin-right: 14px;
 	vertical-align: middle;
-	background-position-x: 0px;
-}
-
-#Navigation .active .icon, #Navigation div:hover .icon
-{
-	background-position-x: 60px;
 }
 
 #Navigation .ViewProjects.active, #Navigation .ViewProjects:hover
@@ -87,15 +81,31 @@
 
 #Navigation .ViewProjects .icon
 {
-	background-position-y: 0px;
+	background-position: 0 0px;
 }
 
 #Navigation .AddProject .icon
 {
-	background-position-y: 94px;
+	background-position: 0 94px;
 }
 
 #Navigation .Notifications .icon
 {
-	background-position-y: 47px;
+	background-position: 0 47px;
+}
+
+
+#Navigation .ViewProjects:hover .icon, #Navigation .ViewProjects.active .icon
+{
+	background-position: 60px 0px;
+}
+
+#Navigation .AddProject:hover .icon, #Navigation .AddProject.active .icon
+{
+	background-position: 60px 94px;
+}
+
+#Navigation .Notifications:hover .icon, #Navigation .Notifications.active .icon
+{
+	background-position: 60px 47px;
 }

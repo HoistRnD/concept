@@ -4,9 +4,10 @@ require.config({
         jquery: '../bower_components/jquery/jquery',
         backbone: '../bower_components/backbone/backbone',
         underscore: '../bower_components/underscore/underscore',
+        relational: '../bower_components/backbone-relational/backbone-relational',
         hoist: './hoist/hoist',
         requirejs: '../bower_components/requirejs/require',
-        "jquery.cookie":"../bower_components/jquery.cookie/jquery.cookie"
+        "jquery.cookie": "../bower_components/jquery.cookie/jquery.cookie"
     },
     shim: {
         underscore: {
@@ -18,18 +19,21 @@ require.config({
                 'jquery'
             ],
             exports: 'Backbone'
+        },
+        relational: {
+            deps: ['backbone']
         }
     }
 });
-require(['app', 'jquery','hoist'], function (app,$,hoist) {
+require(['app', 'jquery', 'hoist'], function(app, $) {
     'use strict';
     app.init();
-    hoist.initialize('KUCCCEGNXPOJPEJEQOUW');
-    if(hoist.isLoggedIn()){
-        new app.concept.View.Dashboard();
-    }
-    else{
-        new app.concept.View.Login();
-    }
+    Hoist.apiKey('PKHZPBO[TPCPGOMLTHJD');
+    Hoist.status(function() {
+            app.concept.load();
+        },
+        function(res) {
+            new app.concept.View.Login();
+        });
 
 });
