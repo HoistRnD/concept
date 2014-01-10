@@ -35,7 +35,7 @@ define(['concept', 'backbone', 'template'], function(Concept, Backbone, Template
         }
         Hoist.post(type, model, function(res) {
             model.set('_rev', res[0]._rev);
-            if (model.get("_id") === undefined) {
+            if (!model.get("_id")) {
                 model.set("_id", res[0]._id);
             }
             success && success.call(context, res);
@@ -43,7 +43,7 @@ define(['concept', 'backbone', 'template'], function(Concept, Backbone, Template
             console.log(type + " post unsuccessful: " + res);
             error && error.call(context, res);
         }, context);
-    }
+    };
 
     Concept.Navigation = Backbone.View.extend({
         events: {

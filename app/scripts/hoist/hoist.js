@@ -48,8 +48,10 @@ var Hoist = (function() {
 		var xhr = new XMLHttpRequest();
 
 		xhr.open(method, opts.url);
+		
+		var responseType = opts.responseType || "json";
+		xhr.responseType = responseType;
 
-		xhr.responseType = opts.responseType || "json";
 		contentType && xhr.setRequestHeader("Content-Type", contentType);
 
 		xhr.setRequestHeader("Authorization", "Hoist " + configs.apikey);
@@ -59,7 +61,7 @@ var Hoist = (function() {
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState === 4) {
 				if (xhr.status >= 200 && xhr.status < 300) {
-					if (typeof xhr.response === "string" && xhr.responseType === "json") {
+					if (typeof xhr.response === "string" && responseType === "json") {
 						success && success.call(context, JSON.parse(xhr.response), xhr);
 					} else {
 						success && success.call(context, xhr.response, xhr);
